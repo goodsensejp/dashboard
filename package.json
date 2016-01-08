@@ -1,0 +1,35 @@
+{
+  "name": "www",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^0.7.2",
+    "webpack": "^1.12.10",
+    "concurrently": "^0.1.1",
+    "express": "^4.13.3",
+    "react-transform-hmr": "^1.0.0",
+    "redux-devtools": "^3.0.0",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.1",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.2.0"
+  },
+  "dependencies": {
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "react-redux": "^4.0.6",
+    "react-router": "^1.0.3",
+    "redux": "^3.0.5",
+    "redux-logger": "^2.3.1",
+    "redux-router": "^1.0.0-beta3",
+    "redux-thunk": "^1.0.3",
+    "rx": "^4.0.7"
+  }
+}
