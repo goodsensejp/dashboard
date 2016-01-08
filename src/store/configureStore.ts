@@ -1,8 +1,3 @@
-import configureStoreDev from "./configureStore.dev";
-import configureStoreProd from "./configureStore.prod";
+import configureStoreDev from './configureStore.dev';
 
-if(ENV === 'production') {
-	module.exports = require('configureStore.prod');
-} else {
-	module.exports = require('configureStore.dev');
-}
+export default configureStoreDev({});

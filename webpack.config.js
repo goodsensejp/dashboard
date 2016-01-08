@@ -3,10 +3,7 @@ var webpack = require('webpack')
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: {
-    app: [ 'webpack-hot-middleware/client', './src/app'],
-    vendor: ["react", "react-dom", "react-redux", "react-router", "redux", "redux-logger", "redux-router", "redux-thunk", "rx"]
-  },
+  entry: [ 'webpack-hot-middleware/client', './src/app'],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -17,9 +14,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
-      ENV: JSON.stringify('production')
-    }),
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+      ENV: JSON.stringify('development')
+    })
   ],
 	resolve: {
 		extensions: ['', '.ts', '.js', '.tsx', '.html']

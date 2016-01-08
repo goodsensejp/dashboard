@@ -82,6 +82,9 @@
     },
     "redux-thunk/redux-thunk.d.ts": {
       "commit": "4639f126d25956b6a7ddf8462dd4e73101983b85"
+    },
+    "history/history.d.ts": {
+      "commit": "4639f126d25956b6a7ddf8462dd4e73101983b85"
     }
   }
 }

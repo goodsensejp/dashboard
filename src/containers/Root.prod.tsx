@@ -7,7 +7,7 @@ interface IProps {
 	store: Store;
 }
 
-export default class RootProd extends React.Component<IProps, any> {
+export default class Root extends React.Component<IProps, any> {
 	render() {
 		const { store } = this.props;
 

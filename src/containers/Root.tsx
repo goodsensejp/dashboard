@@ -1,19 +1,9 @@
-import RootProd from './Root.prod';
-import RootDev from './Root.dev';
-import * as React from "react";
-import {Store} from "redux";
+let Root: any;
 
-interface IProps {
-	store: Store;
-	env: string;
+if(ENV === 'production') {
+	Root = require('./Root.prod');
+} else {
+	Root = require('./Root.dev');
 }
 
-export default class Root extends React.Component<IProps, any> {
-	render() {
-		if(this.props.env === 'production') {
-			return <RootProd store={this.props.store} />
-		} else {
-			return <RootDev store={this.props.store} />
-		}
-	}
-}
+export default Root;

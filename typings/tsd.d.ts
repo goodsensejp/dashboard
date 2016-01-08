@@ -29,3 +29,4 @@
 /// <reference path="react-router/react-router.d.ts" />
 /// <reference path="redux-logger/redux-logger.d.ts" />
 /// <reference path="redux-thunk/redux-thunk.d.ts" />
+/// <reference path="history/history.d.ts" />
