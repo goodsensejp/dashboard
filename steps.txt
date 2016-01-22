@@ -1,0 +1,5 @@
+Steps for creating new resource:
+1- Create api
+2- Create action constants
+3- Create action
+4- bind action

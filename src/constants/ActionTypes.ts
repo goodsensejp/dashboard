@@ -1,0 +1,9 @@
+export var ENTITIES_ACTIONS = {
+  SAVE: "ENTITIES.SAVE"
+}
+
+export var USER_ACTIONS = {
+  FETCH_ME: "USER.FETCH_ME",
+
+  FETCH_PROFILE: "USER.FETCH_PROFILE",
+};

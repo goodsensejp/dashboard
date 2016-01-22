@@ -1,3 +1,7 @@
-export default function rootReducer(state, action) {
-	return state;
+import users from './users';
+import entities from './entities';
+
+export default {
+  users,
+  entities
 }

@@ -2,9 +2,12 @@
 	"compilerOptions": {
 		"target": "es5",
 		"jsx": "react",
-		"module": "commonjs"
+		"module": "amd",
+    "removeComments": true,
+    "outDir": ".tmp"
 	},
 	"exclude": [
+		"test",
 		"node_modules"
 	]
 }

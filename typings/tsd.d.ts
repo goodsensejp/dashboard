@@ -23,10 +23,23 @@
 /// <reference path="redux-devtools-dock-monitor.d.ts" />
 /// <reference path="redux-devtools-log-monitor.d.ts" />
 /// <reference path="react-redux/react-redux.d.ts" />
-/// <reference path="redux-router.d.ts" />
+/// <reference path="redux-simple-router.d.ts" />
 /// <reference path="global.d.ts" />
 /// <reference path="react-router/history.d.ts" />
 /// <reference path="react-router/react-router.d.ts" />
 /// <reference path="redux-logger/redux-logger.d.ts" />
 /// <reference path="redux-thunk/redux-thunk.d.ts" />
 /// <reference path="history/history.d.ts" />
+/// <reference path="immutable.d.ts" />
+/// <reference path="redux-immutablejs.d.ts" />
+/// <reference path="mocha/mocha.d.ts" />
+/// <reference path="assertion-error/assertion-error.d.ts" />
+/// <reference path="chai/chai.d.ts" />
+/// <reference path="isomorphic-fetch.d.ts" />
+/// <reference path="es6-promise/es6-promise.d.ts" />
+/// <reference path="react-tap-event-plugin.d.ts" />
+/// <reference path="material-ui/material-ui.d.ts" />
+
+declare module 'history/lib/createBrowserHistory' {
+  export function createBrowserHistory(): any;
+}
