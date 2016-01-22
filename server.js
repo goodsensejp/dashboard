@@ -1,23 +1,24 @@
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var config = require('./webpack.config')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const config = require('./webpack.config')
 
-var app = new (require('express'))()
-var port = 3000
+const Hapi = require('hapi')
 
-var compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
-app.use(webpackHotMiddleware(compiler))
+const server = new Hapi.Server();
 
-app.use(function(req, res) {
+const port = 3000;
+
+server.connection({ port });
+
+const compiler = webpack(config)
+server.register(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+server.register(webpackHotMiddleware(compiler))
+
+server.register(function(req, res) {
   res.sendFile(__dirname + '/index.html')
 })
 
-app.listen(port, function(error) {
-  if (error) {
-    console.error(error)
-  } else {
-    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
-  }
+server.start(() => {
+  console.info("Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
 })

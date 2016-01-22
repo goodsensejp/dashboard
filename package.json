@@ -14,7 +14,6 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "concurrently": "^0.1.1",
-    "express": "^4.13.3",
     "mocha": "^2.3.4",
     "mocha-loader": "^0.7.1",
     "node-libs-browser": "^0.5.3",
