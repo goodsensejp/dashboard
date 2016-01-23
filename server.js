@@ -1,24 +1,39 @@
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
-const config = require('./webpack.config')
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
+var config = require('./webpack.config')
 
-const Hapi = require('hapi')
+var app = new (require('express'))()
+var port = 3000
 
-const server = new Hapi.Server();
+var compiler = webpack(config)
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
+app.use(webpackHotMiddleware(compiler))
 
-const port = 3000;
+var handleFatalError = function(fatalErrors) {
+  console.log("Fatal errors", fatalErrors);
+}
 
-server.connection({ port });
+var handleSoftErrors = function(softErrors) {
+  console.log("Soft errors", softErrors);
+}
 
-const compiler = webpack(config)
-server.register(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }))
-server.register(webpackHotMiddleware(compiler))
+var handleWarnings = function(warnings) {
+  console.log("warnings", warnings);
+}
 
-server.register(function(req, res) {
-  res.sendFile(__dirname + '/index.html')
-})
+var successfullyCompiled = function() {
+  delete require.cache[require.resolve('./static/server.entry.js')]
+  require('./static/server.entry.js');
+}
 
-server.start(() => {
-  console.info("Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
+compiler.watch({}, (err, stats) => {
+  if(err)
+    return handleFatalError(err);
+  var jsonStats = stats.toJson();
+  if(jsonStats.errors.length > 0)
+    return handleSoftErrors(jsonStats.errors);
+  if(jsonStats.warnings.length > 0)
+    handleWarnings(jsonStats.warnings);
+  successfullyCompiled();
 })
