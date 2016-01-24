@@ -10,7 +10,7 @@ export default class DashboardPage extends React.Component<IProps, any> {
       <div>
         <List subheader="Online users">
         <ListItem
-          primaryText="Brendan Lim"
+          primaryText="Kareem Mohamed"
           leftAvatar={<Avatar src="images/ok-128.jpg" />} />
         <ListItem
           primaryText="Eric Hoffman"

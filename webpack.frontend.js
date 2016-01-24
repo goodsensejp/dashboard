@@ -2,16 +2,14 @@ var path = require('path');
 var webpack = require('webpack')
 
 module.exports = {
-  devtool: 'source-map',
+  // devtool: 'source-map',
   entry: [
-    'webpack-hot-middleware/client?http://0.0.0.0:3000',
-    'webpack/hot/only-dev-server',
-    '../src/app'
+    'webpack/hot/signal.js',
+    './src/app'
   ],
   output: {
-    path: path.join(__dirname, '../build'),
-    filename: 'frontend.js',
-    publicPath: '/static/'
+    path: path.join(__dirname, 'build'),
+    filename: 'frontend.js'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -21,6 +19,7 @@ module.exports = {
       ENV: JSON.stringify('development')
     })
   ],
+  recordsPath: path.join(__dirname, 'build/_frontend_records'),
   resolve: {
     extensions: ['', '.ts', '.js', '.tsx', '.html'],
   },

@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
 
-var nodeModules = fs.readdirSync('./../node_modules')
+var nodeModules = fs.readdirSync('./node_modules')
   .filter(function(x) {
     return ['.bin'].indexOf(x) === -1;
   });
@@ -10,12 +10,14 @@ var nodeModules = fs.readdirSync('./../node_modules')
 module.exports = {
   entry: [
     'webpack/hot/signal.js',
-    '../server/server.js'
+    './server/server.ts'
   ],
   target: 'node',
   output: {
-    path: path.join(__dirname, '../build'),
-    filename: 'backend.js'
+    path: path.join(__dirname, 'build'),
+    filename: 'backend.js',
+    library: 'backend',
+    libraryTarget: 'this'
   },
   node: {
     __dirname: true,
@@ -30,11 +32,19 @@ module.exports = {
       callback();
     }
   ],
-  recordsPath: path.join(__dirname, '../build/_records'),
+  recordsPath: path.join(__dirname, 'build/_records'),
   plugins: [
     new webpack.IgnorePlugin(/\.(css|less)$/),
     new webpack.BannerPlugin('require("source-map-support").install();',
                              { raw: true, entryOnly: false }),
-    new webpack.HotModuleReplacementPlugin({ quiet: true })
-  ]
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  resolve: {
+    extensions: ['', '.ts', '.js', '.tsx', '.html'],
+  },
+  module: {
+    loaders: [
+      {test: /\.tsx?$/, loaders: ['ts-loader']}
+    ]
+  }
 };
