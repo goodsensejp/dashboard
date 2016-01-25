@@ -2,13 +2,13 @@ var path = require('path');
 var webpack = require('webpack')
 
 module.exports = {
-  // devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack/hot/signal.js',
+    'webpack-hot-middleware/client',
     './src/app'
   ],
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.resolve(path.join(__dirname, 'public')),
     filename: 'frontend.js'
   },
   plugins: [
@@ -19,7 +19,7 @@ module.exports = {
       ENV: JSON.stringify('development')
     })
   ],
-  recordsPath: path.join(__dirname, 'build/_frontend_records'),
+  recordsPath: path.resolve(path.join(__dirname, 'build/_frontend_records')),
   resolve: {
     extensions: ['', '.ts', '.js', '.tsx', '.html'],
   },

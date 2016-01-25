@@ -1,31 +1,27 @@
-var path = require('path');
+/// <reference path="../typings/tsd.d.ts" />
+import * as Express from 'express';
+import * as path from 'path';
+import * as http from 'http';
 
-export default (server) => {
-  server.connection({ host: 'localhost', port: 3000 });
+export default (middlewares = []) => {
 
-  server.register(require('inert'), (err) => {
-    if(err) {
-      throw err;
-    }
+  var app = new (<any>Express)();
 
-    console.log("HEEEEEEEEREEEEEEE?");
+  for(let i = 0; i < middlewares.length; i++) {
+    app.use(middlewares[i]);
+  }
+
+  app.use(Express.static(path.resolve(__dirname + '/../public')));
+
+  app.use(function(req, res) {
+    return res.send('Hello new world');
   })
 
+  const port = 3000;
 
-  server.route({
-    method: 'GET',
-    path: '/login',
-    handler: (request, reply) => {
-      console.log("Maybe?");
-      reply.file(path.join(__dirname, '../index.html'));
-    }
-  });
+  var server = http.createServer(app);
 
-  server.start((err) => {
-    if(err) {
-      throw err;
-    }
+  server.listen(port, () => console.log(`Server is listening on port ${port}`));
 
-    console.log("Server 2 is running!", server.info.uri);
-  })  
+  return server;
 }

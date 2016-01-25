@@ -9,7 +9,6 @@ var nodeModules = fs.readdirSync('./node_modules')
 
 module.exports = {
   entry: [
-    'webpack/hot/signal.js',
     './server/server.ts'
   ],
   target: 'node',
@@ -32,12 +31,11 @@ module.exports = {
       callback();
     }
   ],
-  recordsPath: path.join(__dirname, 'build/_records'),
+  recordsPath: path.join(__dirname, 'build/_backend_records'),
   plugins: [
     new webpack.IgnorePlugin(/\.(css|less)$/),
     new webpack.BannerPlugin('require("source-map-support").install();',
-                             { raw: true, entryOnly: false }),
-    new webpack.HotModuleReplacementPlugin()
+                             { raw: true, entryOnly: false })
   ],
   resolve: {
     extensions: ['', '.ts', '.js', '.tsx', '.html'],

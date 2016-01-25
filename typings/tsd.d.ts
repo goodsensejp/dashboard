@@ -39,6 +39,10 @@
 /// <reference path="es6-promise/es6-promise.d.ts" />
 /// <reference path="react-tap-event-plugin.d.ts" />
 /// <reference path="material-ui/material-ui.d.ts" />
+/// <reference path="express/express.d.ts" />
+/// <reference path="mime/mime.d.ts" />
+/// <reference path="node/node.d.ts" />
+/// <reference path="serve-static/serve-static.d.ts" />
 
 declare module 'history/lib/createBrowserHistory' {
   export function createBrowserHistory(): any;
