@@ -2,6 +2,9 @@
 import * as Express from 'express';
 import * as path from 'path';
 import * as http from 'http';
+import configureRoutes from './routes/index';
+
+const port = 3000;
 
 export default (middlewares = []) => {
 
@@ -13,11 +16,7 @@ export default (middlewares = []) => {
 
   app.use(Express.static(path.resolve(__dirname + '/../public')));
 
-  app.use(function(req, res) {
-    return res.send('Hello new world');
-  })
-
-  const port = 3000;
+  configureRoutes(app);
 
   var server = http.createServer(app);
 
