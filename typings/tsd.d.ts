@@ -44,6 +44,9 @@
 /// <reference path="node/node.d.ts" />
 /// <reference path="serve-static/serve-static.d.ts" />
 /// <reference path="mongoose/mongoose.d.ts" />
+/// <reference path="mongoose.extend.d.ts" />
+/// <reference path="lodash/lodash.d.ts" />
+/// <reference path="validator/validator.d.ts" />
 
 declare module 'history/lib/createBrowserHistory' {
   export function createBrowserHistory(): any;

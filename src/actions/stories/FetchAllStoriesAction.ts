@@ -9,10 +9,6 @@ export default class FetchUserAction extends ActionCreator {
     super(getState);
   }
 
-  getType() {
-    return USER_ACTIONS.FETCH_ME;
-  }
-
   getEntity() {
     return this.state.entities.get('stores');
   }
@@ -26,6 +22,6 @@ export default class FetchUserAction extends ActionCreator {
       return;
     }
 
-    this.onNext({ status: "request" });
+    this.onNext({ status: "request", type: USER_ACTIONS.FETCH_ME });
   }
 }

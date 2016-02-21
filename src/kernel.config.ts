@@ -1,19 +1,21 @@
-import Kernel from './kernel';
 import UserApi from './resources/users/UserApi';
 import FetchUserAction from "./actions/users/FetchUserAction";
+import {Store} from 'redux';
 
-export default (store): Kernel => {
-  var kernel = new Kernel();
-
-  // Bind store
-  kernel.bind("store", store);
-
+export default function (store: Store) {
   // Bind apis
-  kernel.bind("userApi", new UserApi())
+  const userApi = new UserApi();
 
   // Bind actions
-  kernel.bind("fetchUserAction", 
-    new FetchUserAction(store.getState, kernel.get("userApi")));
+  const fetchUserAction = new FetchUserAction(store.getState, userApi);
 
-  return kernel;
+  return {
+    store,
+
+    // Bind apis used in our app
+    apis: {userApi},
+    
+    // Bind actions used in our app
+    actionCreators: {fetchUserAction}
+  };
 }

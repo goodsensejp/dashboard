@@ -13,15 +13,12 @@ abstract class ActionCreator {
     return this.observable;
   }
 
-  onNext(action) {
-    action.type = this.getType();
-
+  protected onNext(action) {
     this.observable.onNext(action);
   }
 
   get state() { return this.getState() }
 
-  abstract getType(): string;
   abstract run(params): any;
 }
 

@@ -1,3 +1,3 @@
 import configureMongoose from './mongoose.config';
 
-export var mongoose = configureMongoose();
+export const mongoose = configureMongoose();
