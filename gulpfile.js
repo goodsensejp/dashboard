@@ -58,7 +58,7 @@ function cleanRequire(path) {
 }
 
 function requireServer(middlewares) {
-  var server  = cleanRequire('./build/backend').backend.default(middlewares);
+  var server  = cleanRequire('./build/backend').backend.serve(middlewares);
   enableDestroy(server);
   return server;
 }

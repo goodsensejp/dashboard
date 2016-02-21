@@ -5,7 +5,7 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'webpack-hot-middleware/client',
-    './src/app'
+    './src/client/index'
   ],
   output: {
     path: path.resolve(path.join(__dirname, 'public')),
@@ -21,6 +21,7 @@ module.exports = {
   ],
   recordsPath: path.resolve(path.join(__dirname, 'build/_frontend_records')),
   resolve: {
+    root: __dirname,
     extensions: ['', '.ts', '.js', '.tsx', '.html'],
   },
   module: {

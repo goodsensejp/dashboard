@@ -8,8 +8,9 @@ var nodeModules = fs.readdirSync('./node_modules')
   });
 
 module.exports = {
+  devtool: 'source-map',
   entry: [
-    './server/server.ts'
+    './src/server/index.ts'
   ],
   target: 'node',
   output: {
@@ -38,6 +39,7 @@ module.exports = {
                              { raw: true, entryOnly: false })
   ],
   resolve: {
+    root: __dirname,
     extensions: ['', '.ts', '.js', '.tsx', '.html'],
   },
   module: {

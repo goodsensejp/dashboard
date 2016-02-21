@@ -102,16 +102,16 @@
       "commit": "3a666d1bff92e944488c25599ec56a4937c17c4e"
     },
     "express/express.d.ts": {
-      "commit": "7b3d5a6ea5acda4a81f71309f1cc62354e63b681"
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
     },
     "node/node.d.ts": {
-      "commit": "7b3d5a6ea5acda4a81f71309f1cc62354e63b681"
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "7b3d5a6ea5acda4a81f71309f1cc62354e63b681"
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
     },
     "mime/mime.d.ts": {
-      "commit": "7b3d5a6ea5acda4a81f71309f1cc62354e63b681"
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
     },
     "mongoose/mongoose.d.ts": {
       "commit": "7b3d5a6ea5acda4a81f71309f1cc62354e63b681"
@@ -121,6 +121,12 @@
     },
     "validator/validator.d.ts": {
       "commit": "cacddf20dd89a56185bb0d4ba730191bb2ab44bb"
+    },
+    "passport/passport.d.ts": {
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
+    },
+    "express-session/express-session.d.ts": {
+      "commit": "95433230a9913054c57c715e6b91a9ae738d0b97"
     }
   }
 }

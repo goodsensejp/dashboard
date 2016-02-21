@@ -47,6 +47,8 @@
 /// <reference path="mongoose.extend.d.ts" />
 /// <reference path="lodash/lodash.d.ts" />
 /// <reference path="validator/validator.d.ts" />
+/// <reference path="passport/passport.d.ts" />
+/// <reference path="express-session/express-session.d.ts" />
 
 declare module 'history/lib/createBrowserHistory' {
   export function createBrowserHistory(): any;
