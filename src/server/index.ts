@@ -1,4 +1,5 @@
 import * as Express from 'express';
+import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import * as http from 'http';
 import {Mongoose} from 'mongoose';
@@ -21,7 +22,7 @@ export function serve(middlewares = []) {
     app.use(middlewares[i]);
   }
 
-  app.use(Express.static(path.resolve(__dirname + '/../public')));
+  app.use(bodyParser.json());
 
   // Configuration
   mongoose = configureMongoose();
@@ -33,6 +34,10 @@ export function serve(middlewares = []) {
   // Configure router
   router = configureRouter(kernel.controllers);
   app.use(router);
+
+  app.get('/*', function(req, res, next) {
+    return res.sendFile(path.join(__dirname, 'index.html'));
+  })
 
   var server = http.createServer(app);
 

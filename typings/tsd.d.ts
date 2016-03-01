@@ -1,4 +1,3 @@
-
 /// <reference path="react/react-dom.d.ts" />
 /// <reference path="react/react.d.ts" />
 /// <reference path="redux/redux.d.ts" />
@@ -20,10 +19,7 @@
 /// <reference path="rx/rx.time-lite.d.ts" />
 /// <reference path="rx/rx.time.d.ts" />
 /// <reference path="rx/rx.virtualtime.d.ts" />
-/// <reference path="redux-devtools-dock-monitor.d.ts" />
-/// <reference path="redux-devtools-log-monitor.d.ts" />
 /// <reference path="react-redux/react-redux.d.ts" />
-/// <reference path="redux-simple-router.d.ts" />
 /// <reference path="global.d.ts" />
 /// <reference path="react-router/history.d.ts" />
 /// <reference path="react-router/react-router.d.ts" />
@@ -31,7 +27,6 @@
 /// <reference path="redux-thunk/redux-thunk.d.ts" />
 /// <reference path="history/history.d.ts" />
 /// <reference path="immutable.d.ts" />
-/// <reference path="redux-immutablejs.d.ts" />
 /// <reference path="mocha/mocha.d.ts" />
 /// <reference path="assertion-error/assertion-error.d.ts" />
 /// <reference path="chai/chai.d.ts" />
@@ -41,7 +36,6 @@
 /// <reference path="material-ui/material-ui.d.ts" />
 /// <reference path="express/express.d.ts" />
 /// <reference path="mime/mime.d.ts" />
-/// <reference path="node/node.d.ts" />
 /// <reference path="serve-static/serve-static.d.ts" />
 /// <reference path="mongoose/mongoose.d.ts" />
 /// <reference path="mongoose.extend.d.ts" />
@@ -49,7 +43,8 @@
 /// <reference path="validator/validator.d.ts" />
 /// <reference path="passport/passport.d.ts" />
 /// <reference path="express-session/express-session.d.ts" />
-
-declare module 'history/lib/createBrowserHistory' {
-  export function createBrowserHistory(): any;
-}
+/// <reference path="redux.extend.d.ts" />
+/// <reference path="node/node.d.ts" />
+/// <reference path="body-parser/body-parser.d.ts" />
+/// <reference path="form-data/form-data.d.ts" />
+/// <reference path="request/request.d.ts" />

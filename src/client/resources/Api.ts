@@ -1,33 +1,48 @@
 import { Schema, arrayOf, normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
-import fetch from '../../typings/isomorphic-fetch';
 import {fromJS, Map} from 'immutable';
-
-const GOODSENSE_API_ROOT: string = 'http://api.github.com/';
+import request = require('browser-request');
+import {Subject} from 'rx';
 
 export abstract class Api {
-  call(endpoint, schema: Schema) {
-    const fullUrl = (endpoint.indexOf(GOODSENSE_API_ROOT) === -1) ?
-      GOODSENSE_API_ROOT + endpoint : endpoint;
 
-    return fetch(fullUrl)
-      .then(response =>
-          response.json().then(json => ({ json, response }))
-      ).then(({ json, response }) => {
-        if (!response.ok) {
-          return Promise.reject(json)
-        }
+  call<T>(method, url, data = {}) {
+    const options = {method: method, url, json: true, body: JSON.stringify(data)};
 
-        let camelizedJson = camelizeKeys(json);
+    const observable = new Subject<T>();
 
-        let normalizedResponse = normalize(camelizedJson, schema);
+    request<any>(options, function(err, response) {
+      if(err) {
+        observable.onError(err);
+      } else {
+        observable.onNext(response.body);        
+      }
+    })
 
-        console.log(normalizedResponse);
+    return observable;
+  }
 
-        return Map({
-          result: fromJS(normalizedResponse.result.toString()),
-          entities: fromJS(normalizedResponse.entities)
-        });
-      })
+  post<T>(url, data = {}) {
+    return this.call<T>("POST", url, data);
+  }
+
+  put<T>(url, data = {}) {
+    return this.call<T>("PUT", url, data);
+  }
+
+  get<T>(url) {
+    return this.call<T>("GET", url);
+  }
+
+  normalize(response, schema) {
+
+    let camelizedJson = camelizeKeys(response);
+
+    let normalizedResponse = normalize(camelizedJson, schema);
+
+    return {
+      result: fromJS(normalizedResponse.result),
+      entities: fromJS(normalizedResponse.entities)
+    };
   }
 }

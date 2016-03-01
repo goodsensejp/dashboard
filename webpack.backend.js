@@ -19,10 +19,6 @@ module.exports = {
     library: 'backend',
     libraryTarget: 'this'
   },
-  node: {
-    __dirname: true,
-    __filename: true
-  },
   externals: [
     function(context, request, callback) {
       var pathStart = request.split('/')[0];
@@ -36,7 +32,10 @@ module.exports = {
   plugins: [
     new webpack.IgnorePlugin(/\.(css|less)$/),
     new webpack.BannerPlugin('require("source-map-support").install();',
-                             { raw: true, entryOnly: false })
+                             { raw: true, entryOnly: false }),
+    new webpack.DefinePlugin({
+      __dirname: "'"+__dirname+"'"
+    })
   ],
   resolve: {
     root: __dirname,

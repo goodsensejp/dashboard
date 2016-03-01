@@ -36,9 +36,9 @@ export function configureStore(initialState = {}) {
 
   syncHistoryMiddleware.listenForReplays(store);
 
-  if (isDevEnv() && module.hot) {
+  if (isDevEnv() && (<any>module).hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
+    (<any>module).hot.accept('../reducers', () => {
       console.log("new reducers");
       const nextRootReducer = rootReducer
       store.replaceReducer(nextRootReducer)

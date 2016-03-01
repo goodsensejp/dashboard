@@ -1,7 +1,4 @@
-declare module IsomorphicFetch {
-  function dump();
-}
-
 declare module "isomorphic-fetch" {
-    export = IsomorphicFetch;
+  function fetch(endpoint: string): Promise<any>;
+  export = fetch;
 }

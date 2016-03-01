@@ -1,5 +1,6 @@
 import {Store} from 'redux';
 import {Subject} from 'rx';
+import {ENTITIES_ACTIONS} from "src/client/constants/ActionTypes";
 
 export abstract class ActionCreator {
 
@@ -17,7 +18,14 @@ export abstract class ActionCreator {
     this.observable.onNext(action);
   }
 
+  protected saveEntity(entities) {
+    this.onNext({
+      type: ENTITIES_ACTIONS.SAVE,
+      entities
+    });
+  }
+
   get state() { return this.getState() }
 
-  abstract run(params): any;
+  abstract run(...any): any;
 }

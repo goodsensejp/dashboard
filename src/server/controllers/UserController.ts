@@ -97,4 +97,8 @@ export class UserController extends BaseController {
         res.json(user);
       }).onReject(next);
   }
+
+  me(req, res, next) {
+    return res.json(req.user);
+  }
 }

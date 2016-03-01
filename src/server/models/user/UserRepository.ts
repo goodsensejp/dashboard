@@ -13,13 +13,21 @@ export class UserRepository {
   }
 
   register({ displayName, email, password }) {
-    const user = new UserModel();
+    const user = new UserModel(), promise = new Promise();
 
     user.displayName = displayName;
     user.email = email;
     user.hashPassword(password);
 
-    return user.save<IUserDocument>();
+    user.save<IUserDocument>((err, user) => {
+      if(err) {
+        promise.reject(err)
+      } else {
+        promise.fulfill(user);
+      }
+    });
+
+    return promise;
   }
 
   login({email, password}) {

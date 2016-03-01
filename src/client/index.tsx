@@ -1,3 +1,4 @@
+import {UserApi} from 'src/client/resources/UserApi';
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import {Root} from "src/client/containers/Root";

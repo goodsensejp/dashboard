@@ -68,7 +68,7 @@ gulp.task('frontend-build', function(done) {
 });
 
 gulp.task('frontend-watch', function(done) {
-  webpack(frontendConfig).watch(onBuild(done));
+  webpack(frontendConfig).watch(1000, onBuild(done));
 });
 
 gulp.task('backend-build', function(done) {

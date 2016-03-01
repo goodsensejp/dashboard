@@ -11,6 +11,10 @@ module.exports = {
     path: path.resolve(path.join(__dirname, 'public')),
     filename: 'frontend.js'
   },
+  node: {
+    __dirname: true,
+    __filename: true
+  },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

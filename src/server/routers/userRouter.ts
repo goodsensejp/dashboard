@@ -12,7 +12,7 @@ export function configureUserRouter(userController: UserController) {
   userRouter.get('/', userController.index.bind(userController));
   userRouter.get('/:id', userController.get.bind(userController));
 
-  // userRouter.get('/me', userController.me);
+  userRouter.get('/me', userController.me);
 
   return userRouter;
 }

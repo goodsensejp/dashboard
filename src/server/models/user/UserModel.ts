@@ -1,6 +1,8 @@
 import {Schema, Model, Mongoose} from 'mongoose';
 import {IUserDocument} from 'src/server/models/user/user.d';
 import * as crypto from "crypto";
+import {timestampsPlugin} from 'src/server/plugins/timestamps.plugin';
+import {promisifyPlugin} from 'src/server/plugins/promisify.plugin';
 
 export var UserModel: Model<IUserDocument>;
 
@@ -13,6 +15,9 @@ export function configureUserModel(mongoose: Mongoose) {
 
     type: Number
   });
+
+  userSchema.plugin(timestampsPlugin);
+  userSchema.plugin(promisifyPlugin);
 
   userSchema.method('hashPassword', function(password) {
     this.hashedPassword = md5(password);
