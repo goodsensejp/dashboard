@@ -1,0 +1,1 @@
+class ModelNotFound extends Error {}

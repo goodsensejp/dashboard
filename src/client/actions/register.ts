@@ -1,4 +1,3 @@
-import {FetchUserAction} from './users/FetchUserAction';
 import {Observable} from 'rx';
 import {kernel} from 'src/client/index';
 

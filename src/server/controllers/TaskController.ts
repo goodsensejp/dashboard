@@ -13,7 +13,7 @@ export class TaskController extends BaseController {
     this.taskRepository.findById(id)
       .onFulfill((task) => {
         if(! task) {
-          throw new ModelNotFoundError();
+          next(new ModelNotFoundError());
         }
         req.task = task;
         next();
@@ -43,6 +43,13 @@ export class TaskController extends BaseController {
     this.taskRepository.update(req.task, req.body)
       .onFulfill((task) => {
         res.json(task);
+      }).onReject(next);
+  }
+
+  replace(req, res, next) {
+    this.taskRepository.replace(req.story, req.body)
+      .onFulfill((story) => {
+        res.json(story);
       }).onReject(next);
   }
 }

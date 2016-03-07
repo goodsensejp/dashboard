@@ -13,7 +13,7 @@ export class ProjectController extends BaseController {
     this.projectRepository.findById(id)
       .onFulfill((project) => {
         if(! project) {
-          throw new ModelNotFoundError();
+          next(new ModelNotFoundError());
         }
         req.project = project;
         next();
@@ -42,6 +42,13 @@ export class ProjectController extends BaseController {
     this.projectRepository.update(req.project, req.body)
       .onFulfill((project) => {
         res.json(project);
+      }).onReject(next);
+  }
+
+  replace(req, res, next) {
+    this.projectRepository.replace(req.story, req.body)
+      .onFulfill((story) => {
+        res.json(story);
       }).onReject(next);
   }
 }

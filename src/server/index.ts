@@ -7,6 +7,7 @@ import {configureMongoose} from 'src/server/config/mongoose.config';
 import {configureModels} from 'src/server/config/models.config';
 import {configureKernel} from 'src/server/config/kernel.config';
 import {configureRouter} from 'src/server/config/router.config';
+import {ErrorHandler} from 'src/server/controllers/ErrorHandler';
 
 export const port = 3000;
 
@@ -27,13 +28,20 @@ export function serve(middlewares = []) {
   // Configuration
   mongoose = configureMongoose();
   kernel = configureKernel();
+  const errorHandler = new ErrorHandler();
 
   // Configure models
   configureModels(mongoose);
 
   // Configure router
   router = configureRouter(kernel.controllers);
+  app.use(function(req, res, next) {
+    setTimeout(next, 1000);
+  });
   app.use(router);
+
+  app.use((err, req, res, next) => errorHandler.logErrors(err, req, res, next));
+  app.use((err, req, res, next) => errorHandler.response(err, req, res, next));
 
   app.get('/*', function(req, res, next) {
     return res.sendFile(path.join(__dirname, 'index.html'));

@@ -10,7 +10,9 @@ export function configureStoryRouter(storyController: StoryController) {
   storyRouter.get('/:id', storyController.get.bind(storyController));
 
   storyRouter.post('/', storyController.create.bind(storyController));
-  storyRouter.put('/:id', storyController.update.bind(storyController));
+  storyRouter.put('/:id', storyController.replace.bind(storyController));
+  storyRouter.patch('/:id', storyController.update.bind(storyController));
+  storyRouter.delete('/:id', storyController.remove.bind(storyController));
 
   return storyRouter;
 }

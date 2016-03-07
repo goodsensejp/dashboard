@@ -6,10 +6,20 @@ import {Subject} from 'rx';
 
 export abstract class Api {
 
-  call<T>(method, url, data = {}) {
+  protected call<T>(method, url, data: any = {}) {
+    if(Map.isMap(data)) {
+      data = data.toObject();
+    }
+
+    // Api prefix
+    url = "/api/" + url;
+
     const options = {method: method, url, json: true, body: JSON.stringify(data)};
 
     const observable = new Subject<T>();
+
+    console.log(`$$$Making a ${method} request to ${url}`);
+    console.log("$$$Data", data);
 
     request<any>(options, function(err, response) {
       if(err) {
@@ -22,19 +32,27 @@ export abstract class Api {
     return observable;
   }
 
-  post<T>(url, data = {}) {
+  protected post<T>(url, data = {}) {
     return this.call<T>("POST", url, data);
   }
 
-  put<T>(url, data = {}) {
+  protected put<T>(url, data = {}) {
     return this.call<T>("PUT", url, data);
   }
 
-  get<T>(url) {
+  protected patch<T>(url, data = {}) {
+    return this.call<T>("PATCH", url, data);
+  }
+
+  protected get<T>(url) {
     return this.call<T>("GET", url);
   }
 
-  normalize(response, schema) {
+  protected delete<T>(url, data = {}) {
+    return this.call<T>("DELETE", url, data);
+  }
+
+  protected normalize(response, schema) {
 
     let camelizedJson = camelizeKeys(response);
 

@@ -1,5 +1,6 @@
 import * as React from "react";
 import {List, ListItem, Avatar, IconButton, Divider} from 'material-ui';
+import {connect} from 'react-redux';
 
 interface IProps {
 }
@@ -38,3 +39,5 @@ export class DashboardPage extends React.Component<IProps, any> {
     );
   }
 }
+
+export const ConnectedDashboardPage = connect()(DashboardPage);

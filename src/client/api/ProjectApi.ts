@@ -1,4 +1,4 @@
-import {Api} from "src/client/resources/Api";
+import {Api} from "src/client/api/Api";
 import {Schema, arrayOf} from 'normalizr';
 
 export const projectSchema = new Schema('projects');
@@ -14,8 +14,13 @@ export class ProjectApi extends Api {
       .map((res) => this.normalize(res, projectSchema));
   }
 
-  update(id, attributes) {
+  replace(id, attributes) {
     return this.put(`project/${id}`, attributes)
+      .map((res) => this.normalize(res, projectSchema));
+  }
+
+  update(id, attributes) {
+    return this.patch(`project/${id}`, attributes)
       .map((res) => this.normalize(res, projectSchema));
   }
 

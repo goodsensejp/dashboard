@@ -1,6 +1,5 @@
-import {IProjectDocument, IProjectAttributes} from 'src/server/models/project/project.d';
 import {Promise} from 'mongoose';
-import {ProjectModel} from 'src/server/models/project/ProjectModel';
+import {ProjectModel, IProjectDocument} from 'src/server/models/project/ProjectModel';
 
 export class ProjectRepository {
 
@@ -12,24 +11,19 @@ export class ProjectRepository {
     return ProjectModel.findById(id).exec();
   }
 
-  create({ title, description }) {
+  create(attributes) {
     var project = new ProjectModel();
-
-    project.title = title;
-    project.description = description;
-
+    project.replaceAttributes(attributes);
     return project.promiseToSave();
   }
 
   update(project: IProjectDocument, attributes) {
-    if(attributes.title) {
-      project.title = attributes.title;
-    }
+    project.updateAttributes(attributes);
+    return project.promiseToSave();
+  }
 
-    if(attributes.description) {
-      project.description = attributes.description;
-    }
-
+  replace(project: IProjectDocument, attributes) {
+    project.replaceAttributes(attributes);
     return project.promiseToSave();
   }
 }

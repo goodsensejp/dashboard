@@ -10,7 +10,8 @@ export function configureProjectRouter(projectController: ProjectController) {
   projectRouter.get('/:id', projectController.get.bind(projectController));
 
   projectRouter.post('/', projectController.create.bind(projectController));
-  projectRouter.put('/:id', projectController.update.bind(projectController));
+  projectRouter.put('/:id', projectController.replace.bind(projectController));
+  projectRouter.patch('/:id', projectController.update.bind(projectController));
 
   return projectRouter;
 }

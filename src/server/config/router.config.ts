@@ -7,10 +7,10 @@ import {configureTaskRouter} from 'src/server/routers/taskRouter';
 
 export function configureRouter(controllers) {
   const router = Router();
-  router.use('/user', configureUserRouter(controllers.userController));
-  router.use('/project', configureProjectRouter(controllers.projectController));
-  router.use('/story', configureStoryRouter(controllers.storyController));
-  router.use('/sprint', configureSprintRouter(controllers.sprintController));
-  router.use('/task', configureTaskRouter(controllers.taskController));
+  router.use('/api/user', configureUserRouter(controllers.userController));
+  router.use('/api/project', configureProjectRouter(controllers.projectController));
+  router.use('/api/story', configureStoryRouter(controllers.storyController));
+  router.use('/api/sprint', configureSprintRouter(controllers.sprintController));
+  router.use('/api/task', configureTaskRouter(controllers.taskController));
   return router;
 }

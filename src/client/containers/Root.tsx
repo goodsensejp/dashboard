@@ -10,9 +10,9 @@ interface IProps {
 }
 
 export class Root extends React.Component<IProps, any> {
+
 	render() {
 		const { store, routes } = this.props;
-
 		return (
       <Provider store={store}>
         <div>

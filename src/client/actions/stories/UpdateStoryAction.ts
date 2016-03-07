@@ -1,6 +1,6 @@
 import {ActionCreator} from "src/client/actions/ActionCreator";
 import {STORY_ACTIONS} from "src/client/constants/ActionTypes";
-import {StoryApi} from "src/client/resources/StoryApi";
+import {StoryApi} from "src/client/api/StoryApi";
 
 export class UpdateStoryAction extends ActionCreator {
 
@@ -8,41 +8,37 @@ export class UpdateStoryAction extends ActionCreator {
     super(getState);
   }
 
-  run(id, attributes) {
-    if(this.state.stories.get('editStory').get('isUpdating')) {
+  getInstance(instance) {
+    return this.state.stories.get('instances').get(instance);
+  }
+
+  run(instance, id, attributes) {
+    if(this.getInstance(instance).get('isUpdating')) {
       return;
     }
 
-    this.request(id);
+    this.onNext({ type: STORY_ACTIONS.UPDATE_REQUEST, instance });
 
     this.storyApi.update(id, attributes)
-      .subscribe((res) => {
-        this.saveEntity(res.entities);
-        this.success(res.result);
-      }, (error) => this.failure(error));
+      .subscribe(
+        (res) => this.onSuccess(instance, res),
+        (error) => this.onError(instance, error));
   }
 
-  private request(id) {
+  private onSuccess(instance, res) {
+    this.saveEntity(res.entities);
     this.onNext({
-      type: STORY_ACTIONS.UPDATE,
-      status: "request",
-      id
+      type: STORY_ACTIONS.UPDATE_SUCCESS,
+      result: res.result,
+      instance
     });
   }
 
-  private success(id) {
+  private onError(instance, error) {
     this.onNext({
-      type: STORY_ACTIONS.UPDATE,
-      status: "success",
-      id
-    });
-  }
-
-  private failure(error) {
-    this.onNext({
-      type: STORY_ACTIONS.UPDATE,
-      status: "failure",
-      error: error.message || "Failed to load story!" 
-    });
+      type: STORY_ACTIONS.UPDATE_FAILURE,
+      error: error,
+      instance
+    })
   }
 }

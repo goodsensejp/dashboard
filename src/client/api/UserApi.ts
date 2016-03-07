@@ -1,4 +1,4 @@
-import {Api} from "src/client/resources/Api";
+import {Api} from "src/client/api/Api";
 import {Schema, arrayOf} from 'normalizr';
 
 export const userSchema = new Schema('users');

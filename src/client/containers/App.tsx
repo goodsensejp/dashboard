@@ -6,12 +6,17 @@ import {LoginForm} from "src/client/components/User/LoginForm";
 import {FetchUserAction} from "src/client/actions/users/FetchUserAction";
 import {kernel} from "src/client/index";
 import {AppBar, LeftNav, MenuItem, IconButton, Icons} from 'material-ui';
+import {PushRouteAction} from 'src/client/actions/routes/PushRouteAction';
+
+interface IProps extends React.Props<App> {
+	pushRouteAction: PushRouteAction;
+}
 
 interface IState {
 	openLeftNav: boolean;
 }
 
-export class App extends React.Component<any, IState> {
+export class App extends React.Component<IProps, IState> {
 
 	componentWillMount() {
 		this.setInitialState();
@@ -24,7 +29,11 @@ export class App extends React.Component<any, IState> {
 	}
 
 	toggleLeftNav() {
-		this.setState({openLeftNav: !this.state.openLeftNav})	
+		this.setState({openLeftNav: !this.state.openLeftNav});
+	}
+
+	gotoStories() {
+		this.props.pushRouteAction.run(`/stories`);
 	}
 
 	render() {
@@ -42,7 +51,7 @@ export class App extends React.Component<any, IState> {
 				  <AppBar
 				    title="Menu"
 				    iconElementLeft={<IconButton onClick={this.toggleLeftNav.bind(this)}><Icons.NavigationChevronLeft /></IconButton>} />
-          <MenuItem>Stories</MenuItem>
+          <MenuItem onTouchTap={() => this.gotoStories()}>Stories</MenuItem>
           <MenuItem>Tasks</MenuItem>
           <MenuItem>Sprints</MenuItem>
           <MenuItem>Board</MenuItem>
@@ -52,3 +61,15 @@ export class App extends React.Component<any, IState> {
 		);
 	}
 }
+
+function mapDispatchToProps() {
+  const {
+    pushRouteAction
+  } = kernel.actionCreators;
+
+  return {
+    pushRouteAction,
+  }
+}
+
+export var ConnectedApp = connect(null, mapDispatchToProps)(App);

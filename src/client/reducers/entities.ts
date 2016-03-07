@@ -1,13 +1,17 @@
-import {fromJS} from 'immutable';
+import {fromJS, Map} from 'immutable';
 import {ENTITIES_ACTIONS} from "src/client/constants/ActionTypes";
 
 const initialState = fromJS({
-  users: {}
+  users: {},
+  stories: {}
 });
 
-function entities(state = initialState, action) {
+function entities(state: Map<string, any> = initialState, action) {
   if(action.type === ENTITIES_ACTIONS.SAVE) {
-    return state.merge(action.entities);
+    return state.mergeDeep(action.entities);
+  }
+  else if(action.type === ENTITIES_ACTIONS.REMOVE) {
+  	return state.removeIn([action.entityName, action.id]);
   }
 
   return state;

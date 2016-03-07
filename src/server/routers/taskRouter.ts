@@ -10,7 +10,8 @@ export function configureTaskRouter(taskController: TaskController) {
   taskRouter.get('/:id', taskController.get.bind(taskController));
 
   taskRouter.post('/', taskController.create.bind(taskController));
-  taskRouter.put('/:id', taskController.update.bind(taskController));
+  taskRouter.put('/:id', taskController.replace.bind(taskController));
+  taskRouter.patch('/:id', taskController.update.bind(taskController));
 
   return taskRouter;
 }

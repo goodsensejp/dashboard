@@ -13,7 +13,7 @@ export class SprintController extends BaseController {
     this.sprintRepository.findById(id)
       .onFulfill((sprint) => {
         if(! sprint) {
-          throw new ModelNotFoundError();
+          next(new ModelNotFoundError());
         }
         req.sprint = sprint;
         next();
@@ -43,6 +43,13 @@ export class SprintController extends BaseController {
     this.sprintRepository.update(req.sprint, req.body)
       .onFulfill((sprint) => {
         res.json(sprint);
+      }).onReject(next);
+  }
+
+  replace(req, res, next) {
+    this.sprintRepository.replace(req.story, req.body)
+      .onFulfill((story) => {
+        res.json(story);
       }).onReject(next);
   }
 }

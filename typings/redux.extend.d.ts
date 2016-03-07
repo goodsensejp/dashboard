@@ -2,9 +2,11 @@ declare module ReduxSimpleRouter {
   function syncReduxAndRouter(history: any, state: any): any;
   function routeReducer(state: any, action: any): any;
   function syncHistory(history: any): any;
-  const routeActions: {
-    push: (path: string) => Object
+  export interface IRouteActions {
+    push: (path: string) => Object;
+    replace: (path: string) => Object;
   }
+  const routeActions: IRouteActions;
 }
 declare module "redux-simple-router" {
   export = ReduxSimpleRouter;

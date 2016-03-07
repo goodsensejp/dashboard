@@ -1,7 +1,5 @@
-import {IStoryDocument, IStoryAttributes} from 'src/server/models/story/story.d';
 import {Promise} from 'mongoose';
-import {StoryModel} from 'src/server/models/story/StoryModel';
-import {MongooseUtils} from 'src/server/utils/MongooseUtils';
+import {StoryModel, IStoryDocument} from 'src/server/models/story/StoryModel';
 
 export class StoryRepository {
 
@@ -13,26 +11,23 @@ export class StoryRepository {
     return StoryModel.findById(id).exec();
   }
 
-  create({ title, description, project, sprint }) {
+  create(attributes) {
     var story = new StoryModel();
-
-    story.title = title;
-    story.description = description;
-    story.project = MongooseUtils.id(project);
-    story.sprint = MongooseUtils.id(sprint);
-
+    story.replaceAttributes(attributes);
     return story.promiseToSave();
   }
 
   update(story: IStoryDocument, attributes) {
-    if(attributes.title) {
-      story.title = attributes.title;
-    }
-
-    if(attributes.description) {
-      story.description = attributes.description;
-    }
-
+    story.updateAttributes(attributes);
     return story.promiseToSave();
+  }
+
+  replace(story: IStoryDocument, attributes) {
+    story.replaceAttributes(attributes);
+    return story.promiseToSave();
+  }
+
+  remove(story: IStoryDocument) {
+    return StoryModel.remove({_id: story.id}).exec();
   }
 }

@@ -1,4 +1,5 @@
 import * as React from "react";
+import {connect} from 'react-redux';
 
 interface IProps {
 }
@@ -10,3 +11,5 @@ export class ProjectsPage extends React.Component<IProps, any> {
     );
   }
 }
+
+export const ConnectedProjectsPage = connect()(ProjectsPage);

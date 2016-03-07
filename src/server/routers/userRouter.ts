@@ -6,9 +6,6 @@ export function configureUserRouter(userController: UserController) {
 
   userRouter.param('id', userController.fetch.bind(userController));
 
-  userRouter.post('/register', userController.register.bind(userController));
-  userRouter.post('/login', userController.login.bind(userController));
-
   userRouter.get('/', userController.index.bind(userController));
   userRouter.get('/:id', userController.get.bind(userController));
 

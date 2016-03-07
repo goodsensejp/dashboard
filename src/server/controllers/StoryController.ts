@@ -12,11 +12,12 @@ export class StoryController extends BaseController {
   fetch(req, res, next, id) {
     this.storyRepository.findById(id)
       .onFulfill((story) => {
-        if(! story) {
-          throw new ModelNotFoundError();
+        if (!story) {
+          next(new ModelNotFoundError(id));
+        } else {
+          req.story = story;
+          next();
         }
-        req.story = story;
-        next();
       }).onReject(next);
   }
 
@@ -32,7 +33,6 @@ export class StoryController extends BaseController {
   }
 
   create(req, res, next) {
-
     this.storyRepository.create(req.body)
       .onFulfill((story) => {
         res.json(story);
@@ -41,6 +41,20 @@ export class StoryController extends BaseController {
 
   update(req, res, next) {
     this.storyRepository.update(req.story, req.body)
+      .onFulfill((story) => {
+        res.json(story);
+      }).onReject(next);
+  }
+
+  replace(req, res, next) {
+    this.storyRepository.replace(req.story, req.body)
+      .onFulfill((story) => {
+        res.json(story);
+      }).onReject(next);
+  }
+
+  remove(req, res, next) {
+    this.storyRepository.remove(req.story)
       .onFulfill((story) => {
         res.json(story);
       }).onReject(next);

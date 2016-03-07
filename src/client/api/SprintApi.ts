@@ -1,4 +1,4 @@
-import {Api} from "src/client/resources/Api";
+import {Api} from "src/client/api/Api";
 import {Schema, arrayOf} from 'normalizr';
 
 export const sprintSchema = new Schema('sprints');
@@ -14,8 +14,13 @@ export class SprintApi extends Api {
       .map((res) => this.normalize(res, sprintSchema));
   }
 
-  update(id, attributes) {
+  replace(id, attributes) {
     return this.put(`sprint/${id}`, attributes)
+      .map((res) => this.normalize(res, sprintSchema));
+  }
+
+  update(id, attributes) {
+    return this.patch(`sprint/${id}`, attributes)
       .map((res) => this.normalize(res, sprintSchema));
   }
 

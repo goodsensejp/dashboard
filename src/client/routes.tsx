@@ -1,23 +1,31 @@
 import * as React from 'react'
 import { Route, Router, IndexRoute } from 'react-router'
-import {App} from 'src/client/containers/App'
-import {LoginPage} from 'src/client/containers/pages/LoginPage'
-import {ProjectsPage} from 'src/client/containers/pages/ProjectsPage'
-import {DashboardPage} from 'src/client/containers/pages/DashboardPage'
-import {StoriesPage} from 'src/client/containers/pages/StoriesPage'
+import {ConnectedApp} from 'src/client/containers/App'
+import {ConnectedLoginPage} from 'src/client/containers/pages/LoginPage'
+import {ConnectedProjectsPage} from 'src/client/containers/pages/ProjectsPage'
+import {ConnectedDashboardPage} from 'src/client/containers/pages/DashboardPage'
+import {ConnectedEditStoryPage} from 'src/client/containers/pages/Stories/EditStoryPage'
+import {ConnectedShowStoryPage} from 'src/client/containers/pages/Stories/ShowStoryPage'
+import {ConnectedListStoriesPage} from 'src/client/containers/pages/Stories/ListStoriesPage'
 
 export function configureRoutes(history) {
   return (
     <Router history={history}>
-      <Route path="/" component={App}>
+      <Route path="/" component={ConnectedApp}>
         <IndexRoute
-          component={DashboardPage} />
+          component={ConnectedDashboardPage} />
         <Route path="/login"
-          component={LoginPage} />
+          component={ConnectedLoginPage} />
         <Route path="/projects"
-          component={ProjectsPage} />
+          component={ConnectedProjectsPage} />
+        <Route path="/stories/create"
+          component={ConnectedEditStoryPage} />
+        <Route path="/stories/update/:id"
+          component={ConnectedEditStoryPage} />
+        <Route path="/stories/show/:id"
+          component={ConnectedShowStoryPage} />
         <Route path="/stories"
-          component={StoriesPage} />
+          component={ConnectedListStoriesPage} />
       </Route>
     </Router>
   );

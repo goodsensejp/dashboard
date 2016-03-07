@@ -25,6 +25,14 @@ export abstract class ActionCreator {
     });
   }
 
+  protected removeFromEntity(entityName, id) {
+    this.onNext({
+      type: ENTITIES_ACTIONS.REMOVE,
+      entityName,
+      id
+    });
+  }
+
   get state() { return this.getState() }
 
   abstract run(...any): any;

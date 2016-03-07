@@ -7,6 +7,14 @@ var nodeModules = fs.readdirSync('./node_modules')
     return ['.bin'].indexOf(x) === -1;
   });
 
+function escapeRegExp(str) {
+    return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+
+function replaceAll(str, find, replace) {
+  return str.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
+
 module.exports = {
   devtool: 'source-map',
   entry: [
@@ -34,7 +42,7 @@ module.exports = {
     new webpack.BannerPlugin('require("source-map-support").install();',
                              { raw: true, entryOnly: false }),
     new webpack.DefinePlugin({
-      __dirname: "'"+__dirname+"'"
+      __dirname: "'"+replaceAll(__dirname, '\\', '\\\\')+"'"
     })
   ],
   resolve: {
@@ -43,7 +51,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.tsx?$/, loaders: ['ts-loader']}
+      {test: /\.ts$/, loader: 'ts-loader'}
     ]
   }
 };

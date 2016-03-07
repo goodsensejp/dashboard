@@ -1,6 +1,6 @@
 import {ActionCreator} from "src/client/actions/ActionCreator";
 import {USER_ACTIONS} from "src/client/constants/ActionTypes";
-import {UserApi} from "src/client/resources/UserApi";
+import {UserApi} from "src/client/api/UserApi";
 
 export class FetchUserAction extends ActionCreator {
 

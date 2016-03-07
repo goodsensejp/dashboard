@@ -10,7 +10,8 @@ export function configureSprintRouter(sprintController: SprintController) {
   sprintRouter.get('/:id', sprintController.get.bind(sprintController));
 
   sprintRouter.post('/', sprintController.create.bind(sprintController));
-  sprintRouter.put('/:id', sprintController.update.bind(sprintController));
+  sprintRouter.put('/:id', sprintController.replace.bind(sprintController));
+  sprintRouter.patch('/:id', sprintController.update.bind(sprintController));
 
   return sprintRouter;
 }

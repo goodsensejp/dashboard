@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var MemoryFS = require("memory-fs");
 var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs');
@@ -9,6 +10,10 @@ var Express = require('express');
 var frontendConfig = require('./webpack.frontend.js');
 var backendConfig = require('./webpack.backend.js');
 var enableDestroy = require('server-destroy');
+
+function initServerBuildFile() {
+  fs.writeFileSync("./build/backend.js", "require('mongoose')");
+}
 
 function onBuild(done) {
   return function(err, stats) {
@@ -37,9 +42,12 @@ function createHotReloadMiddlewares() {
 }
 
 function watchBackend(middlewares, done) {
+  initServerBuildFile();
+  requireServer([]);
+  
   var httpServer = null;
 
-  webpack(backendConfig).watch(1000, function(err, stats) {
+  webpack(backendConfig).watch(500, function(err, stats) {
     if(!httpServer) {
       httpServer = requireServer(middlewares);
       done();
@@ -58,9 +66,24 @@ function cleanRequire(path) {
 }
 
 function requireServer(middlewares) {
-  var server  = cleanRequire('./build/backend').backend.serve(middlewares);
-  enableDestroy(server);
-  return server;
+  var backendModule = cleanRequire('./build/backend');
+  if(backendModule.backend && backendModule.backend.serve) {
+    var server = backendModule.backend.serve(middlewares);
+    enableDestroy(server);
+    return server;
+  }
+}
+
+function handleFatalError(err) {
+  throw err;
+}
+
+function handleSoftErrors(err) {
+  throw err;
+}
+
+function handleWarnings(warnings) {
+  console.error(warnings);
 }
 
 gulp.task('frontend-build', function(done) {
@@ -75,12 +98,9 @@ gulp.task('backend-build', function(done) {
   webpack(backendConfig).run(onBuild(done));
 });
 
-/**
- * Only serve the backend
- */
 gulp.task('serve:backend', function(done) {
   watchBackend([], done);
-});
+})
 
 /**
  * Serve with frontend hot reloading
